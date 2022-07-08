@@ -21,7 +21,7 @@ module.exports = class extends Command {
                     description: 'Canal onde a mensagem será enviada',
                 }
             ]
-        });
+        })
     };
 
     run = (interaction) => {
@@ -32,7 +32,7 @@ module.exports = class extends Command {
         const texto = interaction.options.getString('mensagem')
 
         const embed = new MessageEmbed()
-           .setTitle('Uma mensagem foi enviada neste canal')
+           .setTitle('Mensagem enviada!')
            .setDescription(texto)
            .setColor('GREEN')
            .setTimestamp()

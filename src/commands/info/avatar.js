@@ -11,7 +11,7 @@ module.exports = class extends Command {
             description: 'Usuario que deseja ver o avatar',
             type: 'USER',
             }]
-        });
+        })
     };
 
     run = (interaction) => {
@@ -25,5 +25,5 @@ module.exports = class extends Command {
     .setImage(avatarUrl)
 
     interaction.reply({ embeds: [embed] })
-    };
+    }
 };

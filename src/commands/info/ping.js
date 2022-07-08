@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(client, {
             name: 'ping',
             description: 'Mostra o ping do bot.'
-        });
+        })
     };
 
     run = (interaction) => {
@@ -14,5 +14,5 @@ module.exports = class extends Command {
             content: `O ping do bot é \`${this.client.ws.ping}\`ms.`,
             ephemeral: true 
         })
-    };
+    }
 };
