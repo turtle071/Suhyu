@@ -1,6 +1,6 @@
 const { Interaction } = require('discord.js');
 const { MessageEmbed } = require('discord.js');
-const Command = require('../../structures/Command')
+const Command = require('../../structures/Command');
 
 module.exports = class extends Command {
     constructor(client) {
@@ -25,17 +25,29 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        if(!interaction.member.permissions.has('BAN_MEMBERS')) return interaction.reply({ content: ':x: | Você não pode usar este comando.', ephemeral: true})
+        if(!interaction.member.permissions.has('BAN_MEMBERS')) 
+        return interaction.reply({ 
+            content: ':x: | Você não pode usar este comando.', ephemeral: true
+        })
 
         const banReason = interaction.options.getString('reason') ?? 'Motivo não informado.'
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(interaction.user.id === user.id) return interaction.reply({ content: ':x: | Não é possivel se banir!', ephemeral: true})
+        if(interaction.user.id === user.id) 
+        return interaction.reply({ 
+            content: ':x: | Não é possivel se banir!', ephemeral: true
+        })
 
-        if(interaction.user.roles <= user.roles ) return interaction.reply({ content: ':x: | Não foi possivel banir este usuário.', ephemeral: true})
+        if(interaction.user.roles <= user.roles) 
+        return interaction.reply({ 
+            content: ':x: | Não foi possivel banir este usuário.', ephemeral: true
+        })
 
-        if(!member) return interaction.reply({ content: ':x: | O usuário não está no servidor!', ephemeral: true})
+        if(!member) 
+        return interaction.reply({ 
+            content: ':x: | O usuário não está no servidor!', ephemeral: true
+        })
         
         await interaction.guild.members.ban(member, { deleteMessagesDays: 7, reason: banReason })
 
@@ -49,9 +61,5 @@ module.exports = class extends Command {
               interaction.deleteReply()
            }, 60000)
         })
-        /*interaction.reply(`${user.tag} banido com sucesso!`)
-        .catch(() => {
-            interaction.reply(':x: | Não foi possivel banir este membro.')
-        }) */
     }
 }

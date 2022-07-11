@@ -25,9 +25,15 @@ module.exports = class extends Command {
     };
 
     run = (interaction) => {
-        if (!interaction.member.permissions.has('MANAGE_MESSAGES')) return interaction.reply({ content : ':x: | Você não tem permissão para usar este comando.', ephemeral: true})
+        if (!interaction.member.permissions.has('MANAGE_MESSAGES')) 
+        return interaction.reply({ 
+            content : ':x: | Você não tem permissão para usar este comando.', ephemeral: true
+        })
         const canal = interaction.options.getChannel('canal') ?? interaction.channel
-        if (!['GUILD_TEXT', 'GUILD_ANNOUCEMENTS'].includes(canal.type)) return interaction.reply({ content : ':x: | Canal invalido.', ephemeral: true})
+        if (!['GUILD_TEXT', 'GUILD_ANNOUCEMENTS'].includes(canal.type)) 
+        return interaction.reply({ 
+            content : ':x: | Canal invalido.', ephemeral: true
+        })
 
         const texto = interaction.options.getString('mensagem')
 

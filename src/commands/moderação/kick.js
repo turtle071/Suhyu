@@ -24,13 +24,28 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        if(!interaction.member.permissions.has('KICK_MEMBERS')) return interaction.reply({ content: ':x: | Você não pode utilizar este comando.', ephemeral: true})
+        if(!interaction.member.permissions.has('KICK_MEMBERS')) 
+        return interaction.reply({ 
+            content: ':x: | Você não pode utilizar este comando.', ephemeral: true
+        })
 
         const kickReason = interaction.options.getString('reason') ?? 'Motivo não informado.'
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(!member) return interaction.reply({ content: ':x: | O membro não está no servidor!', ephemeral: true})
+        if(interaction.user.id === user.id) 
+        return interaction.reply({
+            content: ':x: | Não é possivel se expulsar do servidor.', ephemeral: true
+        })
+        if(interaction.user.roles <= user.roles ) 
+        return interaction.reply({ 
+            content: ':x: | Não foi possivel expulsar este usuário.', ephemeral: true
+        })
+
+        if(!member) 
+        return interaction.reply({ 
+            content: ':x: | O membro não está no servidor!', ephemeral: true
+        })
         
         await interaction.guild.members.kick(member, { reason: kickReason })
 
