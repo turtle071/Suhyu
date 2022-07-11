@@ -18,7 +18,7 @@ module.exports = class extends Command {
         }
       )}
 
-      run = async(interaction) => {
+      run = async (interaction) => {
         if (!interaction.member.permissions.has('MANAGE_MESSAGES')) return interaction.reply({ content: ':x: | Você não tem permissão para usar este comando!', ephemeral: true})
 
         const numero = interaction.options.getInteger('numero')
