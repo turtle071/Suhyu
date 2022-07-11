@@ -31,7 +31,11 @@ module.exports = class extends Command {
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(!member) return interaction.reply({ content: ':x: | O membro não está no servidor!', ephemeral: true})
+        if(interaction.user.id === user.id) return interaction.reply({ content: ':x: | Não é possivel se banir!', ephemeral: true})
+
+        if(interaction.user.roles <= user.roles ) return interaction.reply({ content: ':x: | Não foi possivel banir este usuário.', ephemeral: true})
+
+        if(!member) return interaction.reply({ content: ':x: | O usuário não está no servidor!', ephemeral: true})
         
         await interaction.guild.members.ban(member, { deleteMessagesDays: 7, reason: banReason })
 
