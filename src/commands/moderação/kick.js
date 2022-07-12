@@ -37,21 +37,21 @@ module.exports = class extends Command {
         return interaction.reply({
             content: ':x: | Não é possivel se expulsar do servidor.', ephemeral: true
         })
-        if(interaction.user.roles <= user.roles ) 
+        if(interaction.member.roles.highest.position <= member.roles.highest.position) 
         return interaction.reply({ 
-            content: ':x: | Não foi possivel expulsar este usuário.', ephemeral: true
+            content: ':x: | Não foi possivel expulsar este usuário, pois o cargo dele é maior que o seu.', ephemeral: true
         })
 
         if(!member) 
         return interaction.reply({ 
-            content: ':x: | O membro não está no servidor!', ephemeral: true
+            content: ':x: | O membro selecionado não está no servidor!', ephemeral: true
         })
         
         await interaction.guild.members.kick(member, { reason: kickReason })
 
         const embed = new MessageEmbed ()
            .setDescription(`${kickReason}`)
-           .setFooter({ text: `Usuário punido por${interaction.user.tag}`})
+           .setFooter({ text: `Usuário punido por ${interaction.user.tag}`})
            .setColor('GREEN')
            
            interaction.reply({ embeds: [embed] }).then(()=> {

@@ -39,9 +39,9 @@ module.exports = class extends Command {
             content: ':x: | Não é possivel se banir!', ephemeral: true
         })
 
-        if(interaction.user.roles <= user.roles) 
+        if(interaction.member.roles.highest.position <= member.roles.highest.position) 
         return interaction.reply({ 
-            content: ':x: | Não foi possivel banir este usuário.', ephemeral: true
+            content: ':x: | Não foi possivel banir este usuário, pois o cargo dele é maior que o meu.', ephemeral: true
         })
 
         if(!member) 
@@ -53,7 +53,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed ()
            .setDescription(`${banReason}`)
-           .setFooter({ text: `Usuário banido por ${interaction.user.tag}`})
+           .setFooter({ text: `✅ Usuário banido com sucesso por ${interaction.user.tag}`})
            .setColor('GREEN')
            
            interaction.reply({ embeds: [embed] }).then(()=> {
