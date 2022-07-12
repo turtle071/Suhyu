@@ -36,7 +36,7 @@ module.exports = class extends Command {
         await interaction.channel.bulkDelete(messages, true)
 
         const embed = new MessageEmbed ()
-           .setDescription('|🗑️| O caminhão do lixo |')
+           .setDescription('Apagando as mensagens... 🌟')
            .setTimestamp()
            .setFooter({ text: `Autor do comando ${interaction.user.tag}`})
            .setThumbnail(interaction.user.displayAvatarURL({dynamic: true, size: 1024}))
