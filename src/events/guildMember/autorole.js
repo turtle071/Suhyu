@@ -16,7 +16,7 @@ module.exports = class extends Event {
         const welcomeEmbed = new MessageEmbed()
         .setColor('GREEN')
         .setImage(avatarUrl)
-        .setDescription(`Bem-vindo✨ ${member} ao servidor ${member.guild.name}`)
+        .setDescription(`✨***Bem-vindo***✨ ${member} ***ao servidor*** ${member.guild.name} 🐢`)
 
         member.guild.channels.cache.get('906568789347418152').send({content: `${member}`, embeds: [welcomeEmbed]})
 

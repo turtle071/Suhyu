@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'avatar',
-            description: 'veja o avatar de um usuario',
+            description: 'veja o avatar de um usuário',
             options: [{
             name: 'user',
             description: 'Usuario que deseja ver o avatar',

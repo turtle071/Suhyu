@@ -25,7 +25,7 @@ module.exports = class extends Command {
 
     run = async (interaction) => {
         if(!interaction.member.permissions.has('KICK_MEMBERS')) 
-        return interaction.reply({ 
+           return interaction.reply({ 
             content: ':x: | Você não pode utilizar este comando.', ephemeral: true
         })
 
@@ -34,16 +34,16 @@ module.exports = class extends Command {
         const member = interaction.guild.members.cache.get(user.id)
 
         if(interaction.user.id === user.id) 
-        return interaction.reply({
+           return interaction.reply({
             content: ':x: | Não é possivel se expulsar do servidor.', ephemeral: true
         })
         if(interaction.member.roles.highest.position <= member.roles.highest.position) 
-        return interaction.reply({ 
+           return interaction.reply({ 
             content: ':x: | Não foi possivel expulsar este usuário, pois o cargo dele é maior que o seu.', ephemeral: true
         })
 
         if(!member) 
-        return interaction.reply({ 
+           return interaction.reply({ 
             content: ':x: | O membro selecionado não está no servidor!', ephemeral: true
         })
         
@@ -51,7 +51,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed ()
            .setDescription(`${kickReason}`)
-           .setFooter({ text: `Usuário punido por ${interaction.user.tag}`})
+           .setFooter({ text: `✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
            .setColor('GREEN')
            
            interaction.reply({ embeds: [embed] }).then(()=> {

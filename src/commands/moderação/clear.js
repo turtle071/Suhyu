@@ -31,9 +31,9 @@ module.exports = class extends Command {
           })
         }
 
-        const messages = await interaction.channel.messages.fetch({ limit: numero });
+        const message = await interaction.channel.messages.fetch({ limit: numero });
 
-        await interaction.channel.bulkDelete(messages, true)
+        await interaction.channel.bulkDelete(message, true)
 
         const embed = new MessageEmbed ()
            .setDescription('Apagando as mensagens... 🌟')
