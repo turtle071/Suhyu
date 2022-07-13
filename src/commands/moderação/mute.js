@@ -1,4 +1,4 @@
-const { Interaction, GuildMember } = require('discord.js');
+const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
 
@@ -30,8 +30,10 @@ module.exports = class extends Command {
     }
 
     run = async(interaction) => {
-        if(!interaction.member.permissions.has('TIMEOUT_MEMBERS'))
-        return interaction.reply(':x: | Você não pode utilizar este comando.')
+        if(!interaction.member.permissions.has('BAN_MEMBERS'))
+        return interaction.reply({
+            content: ':x: | Você não pode utilizar este comando.'
+    })
 
         const user = interaction.options.getUser('user')
         const time = interaction.options.getString('time')
@@ -44,7 +46,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
         .setColor('GREEN')
         .setDescription(`${reason}`)
-        .setFooter({text: `Duração da punição: ${time}\n ✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
+        .setFooter({text: ` Duração da punição: ${time}\n ✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
 
         interaction.reply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {
