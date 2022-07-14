@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
 
@@ -16,7 +15,7 @@ module.exports = class extends Command {
                 },
                 {
                     name: 'time',
-                    type: 'STRING',
+                    type: 'NUMBER',
                     description: 'Tempo em que o usuário ficará silenciado.',
                     required: true,
                 },
@@ -29,29 +28,45 @@ module.exports = class extends Command {
         })
     }
 
-    run = async(interaction) => {
-        if(!interaction.member.permissions.has('BAN_MEMBERS'))
-        return interaction.reply({
-            content: ':x: | Você não pode utilizar este comando.'
-    })
+    run = async (interaction) => {
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        if (!interaction.member.permissions.has('MODERATE_MEMBERS')) {
+            interaction.editReply(`:x: | Você não pode utilizar este comando.`)
+            return;
+        }
 
-        const user = interaction.options.getUser('user')
-        const time = interaction.options.getString('time')
+        const time = interaction.options.getNumber('time')
         const reason = interaction.options.getString('reason') ?? 'Motivo não informado.'
-        const member = interaction.guild.members.cache.get(user.id)
+        const member = interaction.options.getMember('user')
+
+        if (interaction.user.id === member.id) {
+            interaction.editReply(`:x: | Não é possivel se silenciar!`);
+            return;
+        }
+
+        if (member.roles) {
+            if (!member.moderatable || member.roles.highest.position >= interaction.guild.me.roles.highest.position) {
+                interaction.editReply(`:x: | Eu não posso mutar este usuário.`);
+                return;
+            }
+            if (interaction.member.roles.highest.position <= member.roles.highest.position) {
+                interaction.editReply(`:x: | Não foi possivel silenciar este usuário, pois o cargo dele é maior que o meu.`)
+                return;
+            }
+        }
 
         const timeOut = (time * 60 * 1000)
         member.timeout(timeOut, reason)
-        
-        const embed = new MessageEmbed()
-        .setColor('GREEN')
-        .setDescription(`${reason}`)
-        .setFooter({text: ` Duração da punição: ${time}\n ✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
 
-        interaction.reply({ embeds: [embed] }).then(()=> {
+        const embed = new MessageEmbed()
+            .setColor('GREEN')
+            .setDescription(`🔇 ${member.user.tag}  | \`Duração: ${time} minuto(s)\`\n ***Motivo: ${reason}***`)
+            .setFooter({ text: ` Punido por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
+
+        interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {
-              interaction.deleteReply()
-           }, 60000)
+                interaction.deleteReply()
+            }, 5 * 60000)
         })
     }
 }
