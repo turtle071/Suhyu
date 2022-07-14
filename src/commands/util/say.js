@@ -46,6 +46,6 @@ module.exports = class extends Command {
 
         canal.send({ embeds: [embed] })
            .then(() => interaction.editReply({ content : `Mensagem enviada com sucesso \`${canal.name}\`!`}))
-           .catch(() => interaction.editReply({ content : `:X: | Erro ao tentar enviar a mensagem no canal.`}))
+           .catch(() => interaction.editReply({ content : `:x: | Erro ao tentar enviar a mensagem no canal.`}))
         }
     };
