@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/Command');
 
@@ -24,40 +23,41 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        if(!interaction.member.permissions.has('KICK_MEMBERS')) 
-           return interaction.reply({ 
-            content: ':x: | Você não pode utilizar este comando.', ephemeral: true
-        })
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        if(!interaction.member.permissions.has('KICK_MEMBERS')) {
+            interaction.editReply(`:x: | Você não pode utilizar este comando.`)
+            return;
+        }
 
         const kickReason = interaction.options.getString('reason') ?? 'Motivo não informado.'
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(interaction.user.id === user.id) 
-           return interaction.reply({
-            content: ':x: | Não é possivel se expulsar do servidor.', ephemeral: true
-        })
-        if(interaction.member.roles.highest.position <= member.roles.highest.position) 
-           return interaction.reply({ 
-            content: ':x: | Não foi possivel expulsar este usuário, pois o cargo dele é maior que o seu.', ephemeral: true
-        })
+        if(interaction.user.id === user.id) {
+            interaction.editReply(`:x: | Não é possivel se expulsar do servidor.`)
+            return;
+        }
+        if(interaction.member.roles.highest.position <= member.roles.highest.position) {
+            interaction.editReply(`:x: | Não foi possivel expulsar este usuário, pois o cargo dele é maior que o seu.`)
+            return;
+        }
 
-        if(!member) 
-           return interaction.reply({ 
-            content: ':x: | O membro selecionado não está no servidor!', ephemeral: true
-        })
-        
+        if(!member) {
+            interaction.editReply(`:x: | O membro selecionado não está no servidor!`)
+            return;
+        }
+
         await interaction.guild.members.kick(member, { reason: kickReason })
 
         const embed = new MessageEmbed ()
-           .setDescription(`${kickReason}`)
+           .setDescription(`🧨${user.tag} foi expulso!\n ***Motivo: ${kickReason}***`)
            .setFooter({ text: `✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
            .setColor('GREEN')
            
-           interaction.reply({ embeds: [embed] }).then(()=> {
+           interaction.editReply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {
               interaction.deleteReply()
-           }, 60000)
+           }, 5 * 60000)
         })
     }
 }

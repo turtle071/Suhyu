@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/Command');
 
@@ -25,41 +24,41 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        if(!interaction.member.permissions.has('BAN_MEMBERS')) 
-        return interaction.reply({ 
-            content: ':x: | Você não pode usar este comando.', ephemeral: true
-        })
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        if(!interaction.member.permissions.has('BAN_MEMBERS')) {
+            interaction.editReply(`:x: | Você não pode utilizar este comando.`)
+            return;
+        }
 
         const banReason = interaction.options.getString('reason') ?? 'Motivo não informado.'
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(interaction.user.id === user.id) 
-        return interaction.reply({ 
-            content: ':x: | Não é possivel se banir!', ephemeral: true
-        })
+        if(interaction.user.id === user.id) {
+            interaction.editReply(`:x: | Não é possivel se banir do servidor.`)
+            return;
+        }
+        if(interaction.member.roles.highest.position <= member.roles.highest.position) {
+            interaction.editReply(`:x: | Não foi possivel banir este usuário, pois o cargo dele é maior que o seu.`)
+            return;
+        }
 
-        if(interaction.member.roles.highest.position <= member.roles.highest.position) 
-        return interaction.reply({ 
-            content: ':x: | Não foi possivel banir este usuário, pois o cargo dele é maior que o meu.', ephemeral: true
-        })
-
-        if(!member) 
-        return interaction.reply({ 
-            content: ':x: | O usuário não está no servidor!', ephemeral: true
-        })
+        if(!member) {
+            interaction.editReply(`:x: | O membro selecionado não está no servidor!`)
+            return;
+        }
         
         await interaction.guild.members.ban(member, { deleteMessagesDays: 7, reason: banReason })
 
         const embed = new MessageEmbed ()
-           .setDescription(`${banReason}`)
-           .setFooter({ text: `✅ Usuário banido com sucesso por ${interaction.user.tag}`})
+           .setDescription(`💥${user.tag} foi banido!\n ***Motivo: ${banReason}***`)
+           .setFooter({ text: `Comando usado por ${interaction.user.tag}`})
            .setColor('GREEN')
            
-           interaction.reply({ embeds: [embed] }).then(()=> {
+           interaction.editReply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {
               interaction.deleteReply()
-           }, 60000)
+           }, 5 * 60000)
         })
     }
 }

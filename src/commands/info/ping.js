@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 
 module.exports = class extends Command {
@@ -9,10 +8,8 @@ module.exports = class extends Command {
         })
     };
 
-    run = (interaction) => {
-        interaction.reply({
-            content: `O ping do bot é \`${this.client.ws.ping}\`ms.`,
-            ephemeral: true 
-        })
+    run = async (interaction) => {
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        interaction.editReply(`O ping do bot é \`${this.client.ws.ping}\`ms.`)
     }
 };

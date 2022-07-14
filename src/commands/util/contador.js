@@ -1,5 +1,4 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
-const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 
 const actionRow = new MessageActionRow()
@@ -29,9 +28,10 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
         let contagem = 0;
 
-    const reply = await interaction.reply({
+        const reply = await interaction.editReply({
             content: `Contagem: \`${contagem} \``,
             components: [actionRow],
             fetchReply: true

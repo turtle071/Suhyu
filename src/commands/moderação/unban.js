@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
 
@@ -20,27 +19,28 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        if(!interaction.member.permissions.has('BAN_MEMBERS')) 
-        return interaction.reply({ 
-            content: ':x: | Você não pode usar este comando.', ephemeral: true
-        })
+        await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        if(!interaction.member.permissions.has('BAN_MEMBERS')){ 
+           interaction.editReply(`:x: | Você não pode usar este comando.`)
+           return;
+        }
         const user = interaction.options.getString('user')
         const b = await interaction.guild.bans.fetch()
         const member = b.find((x) => x.user.id === user || x.user.tag === user || x.user.username === user)
         
-        if(!member) 
-        return interaction.reply({ 
-            content: 'Este usuário não esta banido!', ephemeral: true
-        })
+        if(!member){ 
+           interaction.editReply(`Este usuário não esta banido!`)
+           return;
+        }
         await interaction.guild.bans.remove(member.user.id)
         const embed = new MessageEmbed()
         .setDescription(`${member.user.tag} desbanido(a) com sucesso!! ✅`)
         .setColor('GREEN')
 
-        interaction.reply({ embeds: [embed] }).then(() => {
+        interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {
                 interaction.deleteReply()
-            }, 60000)
+            }, 5 * 60000)
         })
     }
 }

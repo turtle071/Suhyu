@@ -14,9 +14,9 @@ module.exports = class extends Command {
         })
     };
 
-    run = (interaction) => {
+    run = async (interaction) => {
+    await interaction.deferReply({ ephemeral: false, fetchReply: true })
     const user = interaction.options.getUser('user') ?? interaction.user
-
     const avatarUrl = user.displayAvatarURL({ dynamic: true, size: 2048 })
 
     const embed = new MessageEmbed()
@@ -24,6 +24,6 @@ module.exports = class extends Command {
     .setColor('GREEN')
     .setImage(avatarUrl)
 
-    interaction.reply({ embeds: [embed] })
+    interaction.editReply({ embeds: [embed] })
     }
 };
