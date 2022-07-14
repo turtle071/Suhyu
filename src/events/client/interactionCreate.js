@@ -9,6 +9,7 @@ module.exports = class extends Event {
 
     run = (interaction) => {
         if (interaction.isCommand()) {
+            if (!interaction.guild) return; //commands only return on servers
             const cmd = this.client.commands.find(c => c.name === interaction.commandName)
 
             if (cmd) cmd.run(interaction)
