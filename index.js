@@ -14,4 +14,10 @@ const client = new Client({
     ]
 });
 
+client.on('messageCreate', async (message) => {
+    if (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) { 
+        message.reply(`Olá, ${message.author}, eu sou o Tortugo Bot, meu prefixo é \`/ \`, digite \`/help\` e veja minha lista de comandos`)
+    }
+})
+
 client.login(process.env.BOT_TOKEN);
