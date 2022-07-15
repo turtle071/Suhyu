@@ -9,7 +9,7 @@ module.exports = class extends Event {
 
     run = () => {
         console.log(`✅ ${this.client.user.username} logado com sucesso em ${this.client.guilds.cache.size} servidores!`)
-        this.client.user.setPresence({ activities: [{ name: `Tortugo`, type: 'PLAYING' }] });
+        this.client.user.setPresence({ activities: [{ name: `Tortugo`, type: 'WATCHING' }] });
         this.client.user.setStatus('online');
         this.client.registryCommands()
     };
