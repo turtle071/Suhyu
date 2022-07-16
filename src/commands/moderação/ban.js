@@ -1,16 +1,16 @@
-const { MessageEmbed } = require('discord.js');
+const {MessageEmbed} = require('discord.js');
 const Command = require('../../structures/Command');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'ban',
-            description: 'bane o usuario.',
+            description: 'bane um membro do servidor.',
             options: [
                 {
                     name: 'user',
                     type: 'USER',
-                    description: 'Usuario que vai ser banido',
+                    description: 'Usuário que vai ser banido',
                     required: true
                 },
                 {
@@ -24,8 +24,8 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
-        await interaction.deferReply({ ephemeral: false, fetchReply: true })
-        if(!interaction.member.permissions.has('BAN_MEMBERS')) {
+        await interaction.deferReply({ephemeral: false, fetchReply: true})
+        if (!interaction.member.permissions.has('BAN_MEMBERS')) {
             interaction.editReply(`:x: | Você não pode utilizar este comando.`)
             return;
         }
@@ -34,31 +34,31 @@ module.exports = class extends Command {
         const user = interaction.options.getUser('user')
         const member = interaction.guild.members.cache.get(user.id)
 
-        if(interaction.user.id === user.id) {
-            interaction.editReply(`:x: | Não é possivel se banir do servidor.`)
+        if (interaction.user.id === user.id) {
+            interaction.editReply(`:x: | Não é possível se banir do servidor.`)
             return;
         }
-        if(interaction.member.roles.highest.position <= member.roles.highest.position) {
-            interaction.editReply(`:x: | Não foi possivel banir este usuário, pois o cargo dele é maior que o seu.`)
+        if (interaction.member.roles.highest.position <= member.roles.highest.position) {
+            interaction.editReply(`:x: | Não foi possível banir este usuário, pois o cargo dele é maior, ou igual, ao o seu.`)
             return;
         }
 
-        if(!member) {
+        if (!member) {
             interaction.editReply(`:x: | O membro selecionado não está no servidor!`)
             return;
         }
-        
-        await interaction.guild.members.ban(member, { deleteMessagesDays: 7, reason: banReason })
 
-        const embed = new MessageEmbed ()
-           .setDescription(`💥${user.tag} foi banido!\n ***Motivo: ${banReason}***`)
-           .setFooter({ text: `Comando usado por ${interaction.user.tag}`})
-           .setColor('GREEN')
-           
-           interaction.editReply({ embeds: [embed] }).then(()=> {
+        await interaction.guild.members.ban(member, {deleteMessagesDays: 7, reason: banReason})
+
+        const embed = new MessageEmbed()
+            .setDescription(`💥${user.tag} foi banido!\n ***Motivo: ${banReason}***`)
+            .setFooter({text: `Comando usado por ${interaction.user.tag}`})
+            .setColor('GREEN')
+
+        interaction.editReply({embeds: [embed]}).then(() => {
             setTimeout(() => {
-              interaction.deleteReply()
-           }, 5 * 60000)
+                interaction.deleteReply()
+            }, 5 * 60000)
         })
     }
 }
