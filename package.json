@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":  "node --gc-interval=100 --max-old-space-size=1536 --expose-gc index.js"
+    "start": "node --gc-interval=100 --max-old-space-size=1536 --expose-gc index.js"
   },
   "keywords": [],
   "author": "Turtle",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^13.8.1",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "mongoose": "^6.4.4"
   }
 }

@@ -1,8 +1,10 @@
 const { Client } = require('discord.js');
 
-const { readdirSync, read } = require('fs');
+const { readdirSync } = require('fs');
 
 const { join } = require('path');
+
+const { connect } = require('mongoose');
 
 module.exports = class extends Client {
     constructor (options) {
@@ -15,7 +17,7 @@ module.exports = class extends Client {
 
     registryCommands() {
         //this.guilds.cache.get('906556615925329960').commands.set(this.commands) //If you want to register local commands
-        this.application.commands.set(this.commands) //actived in global servers
+        this.application.commands.set(this.commands) //active in global servers
     };
 
     loadCommands(path = 'src/commands') {
@@ -29,9 +31,9 @@ module.exports = class extends Client {
                 const cmd = new (commandClass)(this)
 
                 this.commands.push(cmd)
-            };
+            }
         
-        };
+        }
 
     };
 
@@ -47,7 +49,18 @@ module.exports = class extends Client {
 
                     this.on(evt.name, evt.run)
 
-            };
-         };
-    };
+            }
+         }
+    }
+
+    async connectToDatabase() {
+        const connection = await connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
+
+        console.log('database connected')
+
+        this.db = { connection }
+    }
 };
