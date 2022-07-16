@@ -4,7 +4,7 @@ const { readdirSync } = require('fs');
 
 const { join } = require('path');
 
-const { connect } = require('mongoose');
+const mongoose = require('mongoose');
 
 module.exports = class extends Client {
     constructor (options) {
@@ -54,7 +54,7 @@ module.exports = class extends Client {
     }
 
     async connectToDatabase() {
-        const connection = await connect(process.env.MONGO_URL, {
+        const connection = await mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
