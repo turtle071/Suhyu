@@ -1,11 +1,11 @@
 const Command = require('../../structures/Command');
-const {MessageEmbed} = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../../package.json');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
-            name: 'botinfo',
+            name: 'bot',
             description: 'Mostra as informações sobre o tortugo.',
         })
     }
@@ -17,7 +17,7 @@ module.exports = class extends Command {
             .setTitle(`Informações do Tortugo`)
             .setColor('GREEN')
             .setThumbnail(avatar)
-            .setDescription(`${this.client.user.username} está presente em ${this.client.guilds.cache.size} servidores.\n\n***Servidor do tortugo*** [https://discord.gg/jSgVkj3U9b]\n\n***Me adicione clicando aqui:*** [https://bit.ly/3PdQNBM]\n\n**Ping:** ${this.client.ws.ping}ms\n\n**Versão:** ${config.version}\n\n**Desenvolvido por:** ${config.author}`)
+            .setDescription(`${this.client.user.username} está presente em ${this.client.guilds.cache.size} servidores.\n\nEntre no meu [servidor](https://discord.gg/jSgVkj3U9b)\n\nMe adicione [clicando aqui](https://bit.ly/3PdQNBM)\n\n**Ping:** ${this.client.ws.ping}ms\n\n**Versão:** ${config.version}\n\n**Feito por:** ${config.author}`)
 
         interaction.editReply({embeds: [embed]})
     }
