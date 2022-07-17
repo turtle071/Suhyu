@@ -53,7 +53,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
             .setDescription(`💥${user.tag} foi banido!\n ***Motivo: ${banReason}***`)
             .setFooter({text: `Comando usado por ${interaction.user.tag}`})
-            .setColor('GREEN')
+            .setColor('#006400')
 
         interaction.editReply({embeds: [embed]}).then(() => {
             setTimeout(() => {

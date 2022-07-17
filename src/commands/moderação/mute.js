@@ -30,6 +30,7 @@ module.exports = class extends Command {
 
     run = async (interaction) => {
         await interaction.deferReply({ ephemeral: false, fetchReply: true })
+        if (!interaction.guild) return; //comandos só retornam em servidores
         if (!interaction.member.permissions.has('MODERATE_MEMBERS')) {
             interaction.editReply(`:x: | Você não pode utilizar este comando.`)
             return;
@@ -59,7 +60,7 @@ module.exports = class extends Command {
         member.timeout(timeOut, reason)
 
         const embed = new MessageEmbed()
-            .setColor('GREEN')
+            .setColor('#006400')
             .setDescription(`🔇 ${member.user.tag}  | \`Duração: ${time} minuto(s)\`\n ***Motivo: ${reason}***`)
             .setFooter({ text: ` Punido por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 

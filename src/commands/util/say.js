@@ -1,4 +1,3 @@
-const { Interaction } = require('discord.js');
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js')
 
@@ -40,7 +39,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
            .setTitle('Mensagem enviada!')
            .setDescription(texto)
-           .setColor('GREEN')
+           .setColor('#006400')
            .setTimestamp()
            .setFooter({ text: `Mensagem enviada por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 

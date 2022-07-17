@@ -26,7 +26,7 @@ module.exports = class extends Command {
           return interaction.reply({
             embeds: [new MessageEmbed ()
             .setDescription(`> digite uma quantidade entre \`1 - 99\`.`)
-            .setColor('GREEN')], ephemeral: true
+            .setColor('#006400')], ephemeral: true
           })
         }
 
@@ -39,7 +39,7 @@ module.exports = class extends Command {
            .setTimestamp()
            .setFooter({ text: `Autor do comando ${interaction.user.tag}`})
            .setThumbnail(interaction.user.displayAvatarURL({dynamic: true, size: 1024}))
-           .setColor('GREEN')
+           .setColor('#006400')
 
            interaction.reply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {

@@ -18,12 +18,13 @@ module.exports = class extends Command {
 
     run = async (interaction) => {
         await interaction.deferReply({ephemeral: false, fetchReply: true})
+        if (!interaction.guild) return; //commands only return on servers
         const user = interaction.options.getUser('user') ?? interaction.user
         const avatarUrl = user.displayAvatarURL({dynamic: true, size: 2048})
 
         const embed = new MessageEmbed()
             .setTitle(user.username)
-            .setColor('GREEN')
+            .setColor('#006400')
             .setImage(avatarUrl)
 
         interaction.editReply({embeds: [embed]})
