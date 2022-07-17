@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const { MessageEmbed } = require('discord.js');
-
 const Client = require('./src/structures/Client');
 
 const client = new Client({
@@ -18,7 +16,7 @@ const client = new Client({
 
 //Mention help // @tortugo - reply this message
 client.on('messageCreate', async (message) => {
-    if (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) { 
+    if (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) {
         message.reply(`Olá, ${message.author}, eu sou o ***Tortugo***, meu prefixo é \`/ \`. Se precisar de ajuda digite \`/help\`, e veja minha lista de comandos!`)
     }
 })
