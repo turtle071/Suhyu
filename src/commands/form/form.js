@@ -8,7 +8,7 @@ const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.j
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
-            name: 'register',
+            name: 'form',
             description: 'Cria um formulário de registro em seu servidor',
         });
     }
