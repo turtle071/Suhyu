@@ -14,6 +14,7 @@ module.exports = class extends Command {
     }
 
     run = async (interaction) => {
+        if (interaction.channel.id !== '998049371377647666') return interaction.reply('Este comando só pode ser executado no canal registro');
         interaction.reply({content: `Registro iniciado, responda as perguntas abaixo:`, ephemeral: true});
         createForm()
             .then(answers => {
