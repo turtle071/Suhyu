@@ -54,6 +54,11 @@ module.exports = class extends Command {
             }
         }
 
+        if (!member.isCommunicationDisabled()) {
+            interaction.editReply(':x: | Este usuário não está silenciado.');
+            return;
+        }
+
         const unMute = 0;
         member.timeout(unMute)
 
