@@ -25,19 +25,6 @@ module.exports = class extends Command {
                                 }
                             ]
                         },
-                        {
-                            type: 'SUB_COMMAND',
-                            name: 'mensagem_entrada',
-                            description: 'Configure a mensagem de boas vindas.',
-                            options: [
-                                {
-                                    type: 'STRING',
-                                    name: 'mensagem',
-                                    description: 'Mensagem de boas vindas.',
-                                    required: true,
-                                }
-                            ]
-                        }
                     ]
                 }
             ]
