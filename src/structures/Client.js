@@ -5,6 +5,7 @@ const { readdirSync } = require('fs');
 const { join } = require('path');
 
 const mongoose = require('mongoose');
+const Models = require('../database/models/models');
 
 module.exports = class extends Client {
     constructor (options) {
@@ -61,6 +62,6 @@ module.exports = class extends Client {
 
         console.log('database connected')
 
-        this.db = { connection }
+        this.db = { connection, ...Models }
     }
 };
