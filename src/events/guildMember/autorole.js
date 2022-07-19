@@ -3,12 +3,18 @@ const Event = require('../../structures/Event');
 module.exports = class extends Event {
     constructor(client) {
         super(client, {
-            name:'guildMemberAdd'
+            name:'guildMemberAdd',
         })
     }
 
     run = async(member) => {
-        const cargo = member.guild.roles.cache.get('906557014212235285')
-        member.roles.add(cargo);
+        const guildDB = await this.client.db.guilds.findById(member.guild.id);
+
+        if (guildDB?.autorole) {
+            const cargo = member.guild.roles.cache.get(guildDB.autorole.role);
+            if (cargo !== undefined) {
+                member.roles.add(cargo)
+              }
+            }
+        }
     }
-}

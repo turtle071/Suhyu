@@ -24,6 +24,26 @@ module.exports = class extends Command {
                                     required: true,
                                 }
                             ]
+                        }
+                    ],
+                },
+                {
+                    type: 'SUB_COMMAND_GROUP',
+                    name: 'autorole',
+                    description: 'Configurações do autorole.',
+                    options: [
+                        {
+                            type: 'SUB_COMMAND',
+                            name: 'cargo_entrada',
+                            description: 'configure o cargo de entrada.',
+                            options: [
+                                {
+                                    type: 'ROLE',
+                                    name: 'cargo',
+                                    description: 'cargo que o membro receberá ao entrar no servidor.',
+                                    required: true,
+                                }
+                            ]
                         },
                     ]
                 }
