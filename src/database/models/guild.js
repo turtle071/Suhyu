@@ -4,6 +4,7 @@ const guidSchema = new Schema({
     _id: String,
     welcome: {
         channel: String,
+        message: String,
     },
     autorole: {
         role: String,

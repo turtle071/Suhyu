@@ -1,5 +1,6 @@
 module.exports = (client, interaction) => {
     const channel = interaction.options.getChannel('canal')
+    const mensagem = interaction.options.getString('mensagem')
 
     if (channel.type !== 'GUILD_TEXT')
         return interaction.reply({
@@ -9,7 +10,10 @@ module.exports = (client, interaction) => {
     if (interaction.guild.db.welcome) interaction.guild.db.welcome.channel = channel.id
     else interaction.guild.db.welcome = { channel: channel.id}
 
+    if (interaction.guild.db.welcome) interaction.guild.db.welcome.message = mensagem.id
+    else interaction.guild.db.welcome = { message: mensagem.id}
+
     interaction.guild.db.save()
 
-    interaction.reply({ content: 'Canal de boas vindas setado.', ephemeral: true })
+    interaction.reply({ content: 'Canal e mensagem de boas vindas setado.', ephemeral: true })
 }
