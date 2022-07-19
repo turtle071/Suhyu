@@ -13,14 +13,15 @@ module.exports = class extends Event {
 
         if (guildDB?.welcome) {
             const welcomeChannel = member.guild.channels.cache.get(guildDB.welcome.channel);
+            const welcomeMessage = member.guild.message.cache.get(guildDB.welcome.message);
 
             const avatarUrl = member.displayAvatarURL({ dynamic: true, size: 1024 })
 
             const welcomeEmbed = new MessageEmbed()
                 .setTitle('Bem-vindo ao servidor!')
-                .setColor('#006400')
+                .setColor('RANDOM')
                 .setImage(avatarUrl)
-                .setDescription(`${member} entrou no servidor ${member.guild.name}, espero que se divirta!`)
+                .setDescription(`${welcomeMessage}`)
 
               welcomeChannel.send({content: `${member.toString()}`, embeds: [welcomeEmbed]});
         }

@@ -65,7 +65,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
             .setTitle('Usuário des-silenciado!')
             .setDescription(`:white_check_mark: | ${user.tag} | ${reason}.`)
-            .setColor('#006400')
+            .setColor('RANDOM')
 
         interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {

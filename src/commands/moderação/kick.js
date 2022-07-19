@@ -52,7 +52,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed ()
            .setDescription(`🧨${user.tag} foi expulso!\n ***Motivo: ${kickReason}***`)
            .setFooter({ text: `✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
-           .setColor('#006400')
+           .setColor('RANDOM')
            
            interaction.editReply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {

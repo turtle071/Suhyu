@@ -1,6 +1,6 @@
-# 🤖 Tortugo
+# 🤖 Suhyu
 
-> Tortugo is a multipurpose [Discord](https://discord.com) bot, built with [Node.js](https://nodejs.org), [JavaScript](https://www.javascript.com/) and [discord.js](https://discord.js.org).
+> Suhyu is a multipurpose [Discord](https://discord.com) bot, built with [Node.js](https://nodejs.org), [JavaScript](https://www.javascript.com/) and [discord.js](https://discord.js.org).
 
 ## ⚠ Requirements
 - NodeJS 16 or higher

@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setTitle(user.username)
-            .setColor('#006400')
+            .setColor('RANDOM')
             .setImage(avatarUrl)
 
         interaction.editReply({embeds: [embed]})

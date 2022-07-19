@@ -39,7 +39,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
            .setTitle('Mensagem enviada!')
            .setDescription(texto)
-           .setColor('#006400')
+           .setColor('RANDOM')
            .setTimestamp()
            .setFooter({ text: `Mensagem enviada por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 

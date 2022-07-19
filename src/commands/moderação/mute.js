@@ -60,7 +60,7 @@ module.exports = class extends Command {
         member.timeout(timeOut, reason)
 
         const embed = new MessageEmbed()
-            .setColor('#006400')
+            .setColor('RANDOM')
             .setDescription(`🔇 ${member.user.tag}  | \`Duração: ${time} minuto(s)\`\n ***Motivo: ${reason}***`)
             .setFooter({ text: ` Punido por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
 

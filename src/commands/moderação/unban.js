@@ -35,7 +35,7 @@ module.exports = class extends Command {
         await interaction.guild.bans.remove(member.user.id)
         const embed = new MessageEmbed()
         .setDescription(`${member.user.tag} desbanido(a) com sucesso!! ✅`)
-        .setColor('#006400')
+        .setColor('RANDOM')
 
         interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {
