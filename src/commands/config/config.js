@@ -15,7 +15,7 @@ module.exports = class extends Command {
                         {
                             type: 'SUB_COMMAND',
                             name: 'canal_entrada',
-                            description: 'configure o canal de boas vindas e a mensagem de boas vindas.',
+                            description: 'configure o canal de boas vindas.',
                             options: [
                                 {
                                     type: 'CHANNEL',
@@ -23,12 +23,6 @@ module.exports = class extends Command {
                                     description: 'Canal de texto onde a mensagem de boas vindas será enviada.',
                                     required: true,
                                 },
-                                {
-                                    type: 'STRING',
-                                    name: 'mensagem',
-                                    description: 'Mensagem de boas vindas',
-                                    required: true,
-                                }
                             ]
                         }
                     ],
