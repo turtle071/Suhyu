@@ -17,6 +17,7 @@ module.exports = class extends Command {
             .setTitle(`Informações da Suhyu`)
             .setColor('RANDOM')
             .setThumbnail(avatar)
+            .setTimestamp()
             .setDescription(`${this.client.user.username} está presente em ${this.client.guilds.cache.size} servidores.\n\nEntre no meu [servidor](https://discord.gg/jSgVkj3U9b)\n\nMe adicione [clicando aqui](https://bit.ly/3om8a7j)\n\n**Ping:** ${this.client.ws.ping}ms\n\n**Versão:** ${config.version}\n\n**Feito por:** ${config.author}`)
 
         interaction.editReply({embeds: [embed]})
