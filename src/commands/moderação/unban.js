@@ -1,16 +1,17 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'unban',
             description: 'Remove o ban do usuário selecionado',
-            type: 'CHAT_INPUT',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.User,
                     description: 'Usuário que deseja retirar o banimento',
                     required: true
                 }
@@ -33,9 +34,9 @@ module.exports = class extends Command {
            return;
         }
         await interaction.guild.bans.remove(member.user.id)
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
         .setDescription(`${member.user.tag} desbanido(a) com sucesso!! ✅`)
-        .setColor('RANDOM')
+        .setColor('Random')
 
         interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {

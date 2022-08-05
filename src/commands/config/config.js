@@ -1,24 +1,26 @@
 const Command = require('../../structures/Command');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js')
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
-            name: 'configurar',
+            name: 'config',
             description: 'Configure o bot pela DB.',
+            type: ApplicationCommandType.ChatInput,
             requireDatabase: true,
             options: [
                 {
-                    type: 'SUB_COMMAND_GROUP',
+                    type: ApplicationCommandOptionType.SubcommandGroup,
                     name: 'welcome',
                     description: 'Configurações do bem-vindo.',
                     options: [
                         {
-                            type: 'SUB_COMMAND',
+                            type: ApplicationCommandOptionType.Subcommand,
                             name: 'canal_entrada',
                             description: 'configure o canal de boas vindas.',
                             options: [
                                 {
-                                    type: 'CHANNEL',
+                                    type: ApplicationCommandOptionType.Channel,
                                     name: 'canal',
                                     description: 'Canal de texto onde a mensagem de boas vindas será enviada.',
                                     required: true,
@@ -28,17 +30,17 @@ module.exports = class extends Command {
                     ],
                 },
                 {
-                    type: 'SUB_COMMAND_GROUP',
+                    type: ApplicationCommandOptionType.SubcommandGroup,
                     name: 'autorole',
                     description: 'Configurações do autorole.',
                     options: [
                         {
-                            type: 'SUB_COMMAND',
+                            type: ApplicationCommandOptionType.Subcommand,
                             name: 'cargo_entrada',
                             description: 'configure o cargo de entrada.',
                             options: [
                                 {
-                                    type: 'ROLE',
+                                    type: ApplicationCommandOptionType.Role,
                                     name: 'cargo',
                                     description: 'cargo que o membro receberá ao entrar no servidor.',
                                     required: true,

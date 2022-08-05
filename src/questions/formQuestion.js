@@ -1,9 +1,5 @@
 module.exports = [
     {
-        question: 'Qual o seu nome?',
-        name: 'Nome'
-    },
-    {
         question: 'Em qual região do país você mora',
         placeholder: 'Selecione a região',
         customId: 'Região',
@@ -41,10 +37,5 @@ module.exports = [
                 emoji: '🥶'
             }
         ]
-    },
-    {
-        question: 'Qual a sua idade',
-        name: 'Idade',
-        filter: (m) => !isNaN(m.content)
     }
 ]

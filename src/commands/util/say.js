@@ -1,21 +1,23 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'say',
             description: 'Faz com que o bot diga alguma mensagem.',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'mensagem',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.String,
                     description: 'A mensagem que será enviada no canal',
                     required: true
                 },
                 {
                     name: 'canal',
-                    type: 'CHANNEL',
+                    type: ApplicationCommandOptionType.Channel,
                     description: 'Canal onde a mensagem será enviada',
                 }
             ]
@@ -36,12 +38,15 @@ module.exports = class extends Command {
 
         const texto = interaction.options.getString('mensagem')
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
            .setTitle('Mensagem enviada!')
            .setDescription(texto)
-           .setColor('RANDOM')
+           .setColor('Random')
            .setTimestamp()
-           .setFooter({ text: `Mensagem enviada por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({
+                text: `Comando solicitado por: ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL()
+            })
 
         canal.send({ embeds: [embed] })
            .then(() => interaction.editReply({ content : `Mensagem enviada com sucesso \`${canal.name}\`!`}))

@@ -1,15 +1,17 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed } = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'clear',
             description: 'Apaga as mensagens do canal',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'numero',
-                    type: 'INTEGER',
+                    type: ApplicationCommandOptionType.Integer,
                     description: 'número de mensagens a ser apagado',
                     required: true
                 }
@@ -24,9 +26,9 @@ module.exports = class extends Command {
 
         if(parseInt(numero) > 99 || parseInt(numero) <= 0) {
           return interaction.reply({
-            embeds: [new MessageEmbed ()
+            embeds: [new EmbedBuilder ()
             .setDescription(`> digite uma quantidade entre \`1 - 99\`.`)
-            .setColor('RANDOM')], ephemeral: true
+            .setColor('Random')], ephemeral: true
           })
         }
 
@@ -34,12 +36,15 @@ module.exports = class extends Command {
 
         await interaction.channel.bulkDelete(message, true)
 
-        const embed = new MessageEmbed ()
+        const embed = new EmbedBuilder()
            .setDescription('Apagando as mensagens... 🌟')
            .setTimestamp()
-           .setFooter({ text: `Autor do comando ${interaction.user.tag}`})
+            .setFooter({
+                text: `Comando solicitado por: ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL()
+            })
            .setThumbnail(interaction.user.displayAvatarURL({dynamic: true, size: 1024}))
-           .setColor('RANDOM')
+           .setColor('Random')
 
            interaction.reply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {

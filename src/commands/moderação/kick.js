@@ -1,21 +1,23 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Command = require('../../structures/Command');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'kick',
             description: 'expulsa um usuário do servidor',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
-                    type: 'USER',
+                    type: ApplicationCommandOptionType.User,
                     description: 'usuário que deseja expulsar do servidor',
                     required: true
                 },
                 {
                     name: 'reason',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.String,
                     description: 'razão da expulsão'
                 }
             ]
@@ -49,10 +51,13 @@ module.exports = class extends Command {
 
         await interaction.guild.members.kick(member, { reason: kickReason })
 
-        const embed = new MessageEmbed ()
+        const embed = new EmbedBuilder()
            .setDescription(`🧨${user.tag} foi expulso!\n ***Motivo: ${kickReason}***`)
-           .setFooter({ text: `✅ Usuário punido com sucesso por ${interaction.user.tag}!!`})
-           .setColor('RANDOM')
+            .setFooter({
+                text: `Comando solicitado por: ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL()
+            })
+           .setColor('Random')
            
            interaction.editReply({ embeds: [embed] }).then(()=> {
             setTimeout(() => {

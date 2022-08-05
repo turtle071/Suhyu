@@ -8,7 +8,7 @@ module.exports = class extends Event {
     }
 
     run = async (interaction) => {
-        if (interaction.isCommand()) {
+        if (interaction.isChatInputCommand()) {
             if (!interaction.guild) return; //commands only return on servers
             const cmd = this.client.commands.find(c => c.name === interaction.commandName)
 

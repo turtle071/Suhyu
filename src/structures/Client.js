@@ -1,9 +1,6 @@
 const { Client } = require('discord.js');
-
 const { readdirSync } = require('fs');
-
 const { join } = require('path');
-
 const mongoose = require('mongoose');
 const Models = require('../database/models/models');
 

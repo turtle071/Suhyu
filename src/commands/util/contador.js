@@ -1,19 +1,20 @@
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const Command = require('../../structures/Command');
+const { ApplicationCommandType, ButtonStyle } = require('discord.js');
 
-const actionRow = new MessageActionRow()
+const actionRow = new ActionRowBuilder()
     .addComponents(
         [
-            new MessageButton()
-               .setStyle('DANGER')
+            new ButtonBuilder()
+               .setStyle(ButtonStyle.DANGER)
                .setLabel('-1')
                .setCustomId('REMOVER'),
-            new MessageButton()
-                .setStyle('SUCCESS')
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.SUCESS)
                 .setLabel('+1')
                 .setCustomId('ADICIONAR'),
-            new MessageButton()
-                .setStyle('PRIMARY')
+            new ButtonBuilder()
+                .setStyle(ButtonStyle.PRIMARY)
                 .setLabel('ZERAR')
                 .setCustomId('ZERAR')          
         ]
@@ -23,7 +24,8 @@ module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'contador',
-            description: 'Inicia um contador no canal'
+            description: 'Inicia um contador no canal',
+            type: ApplicationCommandType.ChatInput
         })
     }
 

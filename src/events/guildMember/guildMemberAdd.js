@@ -1,10 +1,11 @@
 const Event = require('../../structures/Event');
-const { MessageEmbed } = require("discord.js");
+const { EmbedBuilder, ApplicationCommandType } = require("discord.js");
 
 module.exports = class extends Event {
     constructor(client) {
         super(client, {
             name: 'guildMemberAdd',
+            type: ApplicationCommandType.ChatInput
         });
     }
 
@@ -16,9 +17,9 @@ module.exports = class extends Event {
 
             const avatarUrl = member.displayAvatarURL({ dynamic: true, size: 1024 })
 
-            const welcomeEmbed = new MessageEmbed()
+            const welcomeEmbed = new EmbedBuilder()
                 .setTitle('Bem-vindo ao servidor!')
-                .setColor('RANDOM')
+                .setColor('Random')
                 .setImage(avatarUrl)
                 .setDescription(`${member.user.username} entrou no servidor, seja bem vindo ao ${member.guild}!`)
 

@@ -1,10 +1,12 @@
 const Command = require('../../structures/Command');
+const { ApplicationCommandType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'convite',
             description: 'Mostra o convite do bot.',
+            type: ApplicationCommandType.ChatInput
         });
     }
     run = async (interaction) => {

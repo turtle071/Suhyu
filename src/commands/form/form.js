@@ -1,9 +1,7 @@
 const Command = require('../../structures/Command');
-
 const questions = require('../../questions/formQuestion');
-
 const { once } = require('events')
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
@@ -18,19 +16,21 @@ module.exports = class extends Command {
         interaction.reply({content: `Registro iniciado, responda as perguntas abaixo:`, ephemeral: true});
         createForm()
             .then(answers => {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle(`Registro concluído`)
-                    .setAuthor({name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({dynamic: true})})
+                    .setAuthor({
+                        name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({dynamic: true})})
                     .setTimestamp()
-                    .setFooter({text: `Registro solicitado por: ${interaction.user.tag}`})
-                    .setColor('#006400')
+                    .setFooter({
+                        text: `Registro solicitado por: ${interaction.user.tag}`})
+                    .setColor('Random')
                     .addFields(answers)
 
                 interaction.guild.channels.cache.get('998049371377647666').send({ embeds: [embed], ephemeral: true })
 
             })
             .catch((erro) => {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setColor('RED')
                     .setDescription(erro)
                 interaction.channel.send({content: interaction.user.toString(), embeds: [embed]});
@@ -40,13 +40,13 @@ module.exports = class extends Command {
             const channel = interaction.channel
 
             for (const question of questions) {
-                const embed = new MessageEmbed()
+                const embed = new EmbedBuilder()
                     .setTitle(question.question) // Pergunta
                     .setFooter({ text: `Você tem 5 minutos para responder essa pergunta`}) // Tempo para responder
 
                 if (question.options) {
-                    const actionRow = new MessageActionRow()
-                        .addComponents(new MessageSelectMenu(question))
+                    const actionRow = new ActionRowBuilder()
+                        .addComponents(new SelectMenuBuilder(question))
 
                     const msg = await channel.send({ content: interaction.user.toString(), embeds: [embed], components: [actionRow] })
                     const filter = (i) => i.user.id === interaction.user.id

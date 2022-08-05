@@ -1,16 +1,18 @@
-const {MessageEmbed} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Command = require('../../structures/Command');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'avatar',
             description: 'veja o avatar de um membro do servidor.',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
                     description: 'escolha o membro que deseja ver o avatar, ou veja o seu mesmo.',
-                    type: 'USER',
+                    type: ApplicationCommandOptionType.User,
                 }
             ]
         })
@@ -22,9 +24,9 @@ module.exports = class extends Command {
         const user = interaction.options.getUser('user') ?? interaction.user
         const avatarUrl = user.displayAvatarURL({dynamic: true, size: 2048})
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle(user.username)
-            .setColor('RANDOM')
+            .setColor('Random')
             .setImage(avatarUrl)
 
         interaction.editReply({embeds: [embed]})

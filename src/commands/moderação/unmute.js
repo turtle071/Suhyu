@@ -1,21 +1,23 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client,{
             name: "unmute",
             description: "Des-silencia um usuário que esteja mutado.",
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
-                    type: 'USER',
+                    type: ApplicationCommandOptionType.User,
                     description: 'O usuário que será des-silenciar.',
                     required: true
                 },
                 {
                     name: 'reason',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.String,
                     description: 'A razão do usuário ser des-silenciado.',
                     required: false
                 }
@@ -62,10 +64,10 @@ module.exports = class extends Command {
         const unMute = 0;
         member.timeout(unMute)
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setTitle('Usuário des-silenciado!')
             .setDescription(`:white_check_mark: | ${user.tag} | ${reason}.`)
-            .setColor('RANDOM')
+            .setColor('Random')
 
         interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {

@@ -1,27 +1,29 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'mute',
             description: 'silencia um usuário do servidor.',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
-                    type: 'USER',
+                    type: ApplicationCommandOptionType.User,
                     description: 'Usuário que deseja silenciar',
                     required: true,
                 },
                 {
                     name: 'time',
-                    type: 'NUMBER',
+                    type: ApplicationCommandOptionType.Number,
                     description: 'Tempo em que o usuário ficará silenciado.',
                     required: true,
                 },
                 {
                     name: 'reason',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.String,
                     description: 'Motivo do silence'
                 }
             ]
@@ -59,10 +61,13 @@ module.exports = class extends Command {
         const timeOut = (time * 60 * 1000)
         member.timeout(timeOut, reason)
 
-        const embed = new MessageEmbed()
-            .setColor('RANDOM')
+        const embed = new EmbedBuilder()
+            .setColor('Random')
             .setDescription(`🔇 ${member.user.tag}  | \`Duração: ${time} minuto(s)\`\n ***Motivo: ${reason}***`)
-            .setFooter({ text: ` Punido por: ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
+            .setFooter({
+                text: `Comando solicitado por: ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL()
+            })
 
         interaction.editReply({ embeds: [embed] }).then(() => {
             setTimeout(() => {

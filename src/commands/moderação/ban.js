@@ -1,21 +1,23 @@
-const {MessageEmbed} = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const Command = require('../../structures/Command');
+const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class extends Command {
     constructor(client) {
         super(client, {
             name: 'ban',
             description: 'bane um membro do servidor.',
+            type: ApplicationCommandType.ChatInput,
             options: [
                 {
                     name: 'user',
-                    type: 'USER',
+                    type: ApplicationCommandOptionType.User,
                     description: 'Usuário que vai ser banido',
                     required: true
                 },
                 {
                     name: 'reason',
-                    type: 'STRING',
+                    type: ApplicationCommandOptionType.String,
                     description: 'Motivo do banimento',
                     required: false
                 }
@@ -50,10 +52,13 @@ module.exports = class extends Command {
 
         await interaction.guild.members.ban(member, {deleteMessagesDays: 7, reason: banReason})
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setDescription(`💥${user.tag} foi banido!\n ***Motivo: ${banReason}***`)
-            .setFooter({text: `Comando usado por ${interaction.user.tag}`})
-            .setColor('RANDOM')
+            .setFooter({
+                text: `Comando solicitado por: ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL()
+            })
+            .setColor('Random')
 
         interaction.editReply({embeds: [embed]}).then(() => {
             setTimeout(() => {
