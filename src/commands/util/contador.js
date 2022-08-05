@@ -6,15 +6,15 @@ const actionRow = new ActionRowBuilder()
     .addComponents(
         [
             new ButtonBuilder()
-               .setStyle(ButtonStyle.DANGER)
+               .setStyle(ButtonStyle.Danger)
                .setLabel('-1')
                .setCustomId('REMOVER'),
             new ButtonBuilder()
-                .setStyle(ButtonStyle.SUCESS)
+                .setStyle(ButtonStyle.Success)
                 .setLabel('+1')
                 .setCustomId('ADICIONAR'),
             new ButtonBuilder()
-                .setStyle(ButtonStyle.PRIMARY)
+                .setStyle(ButtonStyle.Primary)
                 .setLabel('ZERAR')
                 .setCustomId('ZERAR')          
         ]
