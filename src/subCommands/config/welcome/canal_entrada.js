@@ -1,7 +1,7 @@
 module.exports = (client, interaction) => {
     const channel = interaction.options.getChannel('canal')
 
-    if (channel.type !== 'GUILD_TEXT')
+    if (!['GUILD_TEXT'].includes(channel.type))
         return interaction.reply({
             content: ':x: Este canal não é um canal de texto.', ephemeral: true
         })
