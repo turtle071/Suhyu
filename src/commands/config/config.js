@@ -48,6 +48,26 @@ module.exports = class extends Command {
                             ]
                         },
                     ]
+                },
+                {
+                    type: ApplicationCommandOptionType.SubcommandGroup,
+                    name: 'autorolebot',
+                    description: 'Configurações do autorole do bot.',
+                    options: [
+                        {
+                            type: ApplicationCommandOptionType.Subcommand,
+                            name: 'cargo_entrada_bot',
+                            description: 'configure o cargo de entrada do bot.',
+                            options: [
+                                {
+                                    type: ApplicationCommandOptionType.Role,
+                                    name: 'cargo',
+                                    description: 'cargo que o bot receberá ao entrar no servidor.',
+                                    required: true,
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         });
