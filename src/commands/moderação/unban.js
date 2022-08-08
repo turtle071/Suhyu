@@ -11,7 +11,7 @@ module.exports = class extends Command {
             options: [
                 {
                     name: 'user',
-                    type: ApplicationCommandOptionType.User,
+                    type: ApplicationCommandOptionType.String,
                     description: 'Usuário que deseja retirar o banimento',
                     required: true
                 }

@@ -1,11 +1,10 @@
 const Event = require('../../structures/Event');
-const { ApplicationCommandType, ActivityType } = require('discord.js');
+const { ActivityType } = require('discord.js');
 
 module.exports = class extends Event {
     constructor(client) {
         super(client, {
             name: 'ready',
-            type: ApplicationCommandType.ChatInput
         });
     };
 

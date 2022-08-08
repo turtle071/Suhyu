@@ -3,6 +3,6 @@ class Event {
         this.client = client
         this.name = options.name
     }
-};
+}
 
 module.exports = Event;
