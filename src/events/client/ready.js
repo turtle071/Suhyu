@@ -10,7 +10,7 @@ module.exports = class extends Event {
 
     run = async () => {
         console.log(`✅ ${this.client.user.username} logado com sucesso em ${this.client.guilds.cache.size} servidores!`)
-        this.client.user.setPresence({ activities: [{ name: `Suhyu /help`, type: ActivityType.Watching }] });
+        this.client.user.setPresence({ activities: [{ name: `suhyu.turtles.studio`, type: ActivityType.Watching }] });
         this.client.user.setStatus('online');
         this.client.registryCommands()
         await this.client.connectToDatabase()
